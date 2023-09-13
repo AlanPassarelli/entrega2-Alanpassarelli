@@ -1,0 +1,21 @@
+{
+  "name": "curso-backend-alan-passarelli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "mongoose": "^7.5.1",
+    "mongoose-paginate-v2": "^1.7.31",
+    "nodemon": "^3.0.1",
+    "socket.io": "^4.7.2"
+  }
+}

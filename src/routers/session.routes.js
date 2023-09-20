@@ -16,20 +16,21 @@ sessionRouter.post('/login', async (req, res) => {
         if(user) {
            if (user.password === password) {
             req.session.login = true
-            res.status (200). send({resultado: 'login valido', message: user })
-           } else {
-            res.status (401). send({resultado: 'Contraseña no validar', message: password})
-           }
+            res.status(200).send({ resultado: 'login valido', message: `Bienvenido, ${user.first_name} ${user.last_name}` });
         } else {
-            res.status(404). send({resultado: 'not found', message: user})
+            res.status(401).send({ resultado: 'Contraseña no válida', message: password });
         }
-
+    } else {
+        res.status(404).send({ resultado: 'Usuario no encontrado', message: email });
+    }
 
     } catch (error) {
         res.status(404).send({erorr: `Error en login: ${error}`})
     }
 
 })
+
+
 
 
 sessionRouter.get('/logout', (req,res) => {

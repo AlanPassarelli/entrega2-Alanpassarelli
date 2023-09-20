@@ -34,11 +34,11 @@ form.addEventListener('submit', async (e) => {
                     confirmButtonText: 'Ok'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = '/login'; // Redirecciona al usuario a la vista "login"
+                        window.location.href = '/login'; 
                     }
                 });
             } catch (error) {
-                // Manejar el error, quizá quieras mostrar otro Swal aquí
+          
                 Swal.fire({
                     title: 'Error',
                     text: 'Ha ocurrido un error durante el registro.',
@@ -46,7 +46,7 @@ form.addEventListener('submit', async (e) => {
                     confirmButtonText: 'Ok'
                 });
             }
-            // window.location.href = '/rutaDondeQuieresRedirigir'; 
+   
         } else {
             alert(`Error: ${data.mensaje}`);
         }

@@ -1,3 +1,4 @@
+
 // esta funcion se ejecuta con el evento submit del formulario
 document.getElementById('loginForm').addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -19,10 +20,11 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         });
 
         const data = await response.json();
-        
-        if (response.status === 200 || response.status === 401) {
-            console.log("Inicio de sesión exitoso");
-            window.location.href = "/"; // Redirige al usuario a la página principal
+        //console.log(data)
+
+        if (response.status === 200 || response.status === 401 ) {
+            console.log("llego hasta aca")
+            window.location.href = "/";
         } else {
             Swal.fire({
                 icon: 'error',

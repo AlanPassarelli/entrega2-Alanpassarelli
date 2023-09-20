@@ -21,6 +21,9 @@ res.render("chat")
 routerV.get("/login",(req,res)=>{
     res.render("login")
     })
-    
+
+    routerV.get("/signup",(req,res)=>{
+        res.render("signup")
+        })
 
 export default routerV

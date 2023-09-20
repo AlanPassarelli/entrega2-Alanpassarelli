@@ -1,11 +1,9 @@
-
 // esta funcion se ejecuta con el evento submit del formulario
 document.getElementById('loginForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-
 
     try {
         const response = await fetch('/api/sessions/login', {
@@ -20,16 +18,24 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         });
 
         const data = await response.json();
-        //console.log(data)
 
-        if (response.status === 200 || response.status === 401 ) {
-            console.log("llego hasta aca")
+        if (response.status === 200) {
+            console.log("Inicio de sesión exitoso");
             window.location.href = "/";
-        } else {
+            
+        } else if (response.status === 401) {
+            // Contraseña incorrecta, muestra un mensaje de error
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: data.resultado
+                text: 'Contraseña incorrecta. Por favor, verifica tus credenciales.'
+            });
+        } else {
+            // Otro código de estado, muestra un mensaje de error genérico
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Hubo un error al intentar iniciar sesión'
             });
         }
 

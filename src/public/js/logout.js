@@ -1,4 +1,3 @@
-// Código de Handlebars (tu_script.js)
 
 // Selecciona el botón de "Cerrar sesión" en tu interfaz de usuario
 const logoutButton = document.getElementById('logoutButton');

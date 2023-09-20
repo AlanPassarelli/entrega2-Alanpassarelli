@@ -15,7 +15,6 @@ form.addEventListener('submit', async (e) => {
     };
 
     try {
-        // Haz una solicitud POST usando fetch
         const response = await fetch('/api/users', {
             method: 'POST',
             headers: {
@@ -26,7 +25,6 @@ form.addEventListener('submit', async (e) => {
 
         const data = await response.json();
 
-        // Procesa la respuesta. Puedes mostrar un mensaje al usuario, redirigir, etc.
         if (response.ok) {
             try {
                 Swal.fire({

@@ -94,3 +94,5 @@ document.getElementById("delete-btn").addEventListener("click", function () {
     socketClient.emit("deleteProduct", deleteid);
     deleteidinput.value = "";
   });
+
+  

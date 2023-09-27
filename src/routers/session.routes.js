@@ -1,37 +1,50 @@
 import { Router } from "express";
-import { userModel } from "../dao/models/users.models.js";
+import passport from "passport";
 
 const sessionRouter = Router ()
 
-sessionRouter.post('/login', async (req, res) => {
-    const {email, password} = req.body
-
+sessionRouter.post('/login', passport.authenticate('login'), async (req, res) => {
     try {
-        if(req.session.login) {
-            res.status (200). send ({resultado: 'login ya existente'})
-        } 
-
-        const user = await userModel.findOne({email: email})
-
-        if(user) {
-           if (user.password === password) {
-            req.session.login = true
-            res.status(200).send({ resultado: 'login valido', message: `Bienvenido, ${user.first_name} ${user.last_name}` });
-        } else {
-            res.status(401).send({ resultado: 'Contraseña no válida', message: password });
+        if (!req.user) {
+            return res.status(401).send({ mensaje: "Usuario invalido" })
         }
-    } else {
-        res.status(404).send({ resultado: 'Usuario no encontrado', message: email });
-    }
 
+        req.session.user = {
+            first_name: req.user.first_name,
+            last_name: req.user.last_name,
+            age: req.user.age,
+            email: req.user.email
+        }
+
+        res.status(200).send({ payload: req.user })
     } catch (error) {
-        res.status(404).send({erorr: `Error en login: ${error}`})
+        res.status(500).send({ mensaje: `Error al iniciar sesion ${error}` })
     }
-
 })
 
 
+    sessionRouter.post('/register', passport.authenticate ('register'), async (req, res) => {
 
+        try {
+           if(!req.user) {
+               return res.status (400).send ({ mensaje: "Usuario ya existente"})
+           }
+   
+
+          res.status(200).send ({mensaje: 'Usuario registrado'})
+        } catch (error) {
+           res.status (500).send ({mensaje: `Error al registar usuario ${error}`})
+        }
+   
+       })
+   
+sessionRouter.get('/github',passport.authenticate('github', {scope:['user:email']}), async (req, res) => {
+})
+
+sessionRouter.get('/githubCallback',passport.authenticate('github'), async (req, res) => {
+    res.session.user = req.user
+    res.status(200).send({mensaje: 'Usuario logueado'})
+})
 
 sessionRouter.get('/logout', (req,res) => {
     if (req.session.login) {

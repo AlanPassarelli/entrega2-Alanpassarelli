@@ -1,6 +1,8 @@
 import express from 'express';
 import 'dotenv/config'
 import mongoose from 'mongoose';
+import passport from 'passport';
+import initializePassport from './config/passport.js';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
@@ -59,6 +61,10 @@ app.use (session({
     resave: false,
     saveUninitialized: false
 }))
+
+initializePassport ()
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.engine("handlebars",handlebars.engine())
 app.set('view engine', 'handlebars');
